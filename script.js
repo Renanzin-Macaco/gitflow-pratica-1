@@ -4,7 +4,7 @@ const taskList = document.getElementById("taskList");
 
 addTaskBtn.addEventListener("click", adicionarTarefa);
 
-taskInput.addEventListener("keypress", function(event) {
+taskInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         adicionarTarefa();
     }
@@ -13,26 +13,26 @@ taskInput.addEventListener("keypress", function(event) {
 function adicionarTarefa() {
     const textoTarefa = taskInput.value.trim();
 
-    if (textoTarefa === "") {
+    if (!textoTarefa) {
         alert("Digite uma tarefa antes de adicionar.");
         return;
     }
 
     const li = document.createElement("li");
-    li.classList.add("task-item");
+    li.className = "task-item";
 
     const span = document.createElement("span");
     span.textContent = textoTarefa;
 
-    span.addEventListener("click", function() {
+    span.addEventListener("click", () => {
         li.classList.toggle("concluida");
     });
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Excluir";
-    deleteBtn.classList.add("delete-btn");
+    deleteBtn.className = "delete-btn";
 
-    deleteBtn.addEventListener("click", function() {
+    deleteBtn.addEventListener("click", () => {
         li.remove();
     });
 

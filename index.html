@@ -10,6 +10,7 @@
 
     <header class="cabecalho">
         <h1>Task List</h1>
+
         <nav>
             <a href="#tarefas">Minhas tarefas</a>
         </nav>
@@ -21,12 +22,20 @@
             <p>Organize suas tarefas do dia</p>
 
             <div class="input-area">
-                <input 
-                    type="text" 
-                    id="taskInput" 
+                <input
+                    type="text"
+                    id="taskInput"
                     placeholder="Digite uma nova tarefa"
+                    autocomplete="off"
+                    aria-label="Campo para adicionar tarefa"
                 >
-                <button id="addTaskBtn">Adicionar</button>
+
+                <button
+                    id="addTaskBtn"
+                    aria-label="Adicionar tarefa"
+                >
+                    Adicionar
+                </button>
             </div>
 
             <ul id="taskList"></ul>
@@ -38,5 +47,6 @@
     </footer>
 
     <script src="script.js"></script>
+
 </body>
 </html>

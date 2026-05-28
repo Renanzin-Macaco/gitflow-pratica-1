@@ -16,20 +16,44 @@
     </header>
 
     <main class="container" id="tarefas">
-        <section class="task-box">
-            <h2>Minha lista de tarefas</h2>
-            <p>Organize suas tarefas do dia</p>
+        <section class="task-box" aria-labelledby="titulo-tarefas">
+            <h2 id="titulo-tarefas">Minha lista de tarefas</h2>
+            <p class="task-subtitle">Organize suas tarefas do dia</p>
 
-            <div class="input-area">
-                <input 
-                    type="text" 
-                    id="taskInput" 
-                    placeholder="Digite uma nova tarefa"
-                >
-                <button id="addTaskBtn">Adicionar</button>
+            <form class="task-form" id="taskForm" novalidate>
+                <div class="form-control">
+                    <label class="sr-only" for="taskInput">Nova tarefa</label>
+                    <input 
+                        type="text" 
+                        id="taskInput"
+                        name="task"
+                        placeholder="Digite uma nova tarefa"
+                        maxlength="120"
+                        autocomplete="off"
+                        required
+                    >
+                    <small id="inputError" class="input-error" aria-live="polite"></small>
+                </div>
+
+                <button type="submit" id="addTaskBtn">
+                    <span class="btn-text">Adicionar</span>
+                    <span class="spinner" aria-hidden="true"></span>
+                </button>
+            </form>
+
+            <div class="filter-area" aria-label="Filtrar tarefas">
+                <button type="button" class="filter-btn active" data-filter="todas" aria-pressed="true">
+                    Todas
+                </button>
+                <button type="button" class="filter-btn" data-filter="pendentes" aria-pressed="false">
+                    Pendentes
+                </button>
+                <button type="button" class="filter-btn" data-filter="concluidas" aria-pressed="false">
+                    Concluídas
+                </button>
             </div>
 
-            <ul id="taskList"></ul>
+            <ul id="taskList" aria-live="polite"></ul>
         </section>
     </main>
 

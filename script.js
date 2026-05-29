@@ -4,13 +4,18 @@ const taskList = document.getElementById("taskList");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const inputError = document.getElementById("inputError");
 const filterButtons = document.querySelectorAll(".filter-btn");
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = themeToggle.querySelector(".theme-icon");
+const themeText = themeToggle.querySelector(".theme-text");
 
 const STORAGE_KEY = "taskList.tarefas";
+const THEME_STORAGE_KEY = "taskList.tema";
 
 let tarefas = carregarTarefas();
 let filtroAtual = "todas";
 let carregando = false;
 
+carregarTema();
 renderizarTarefas();
 
 taskForm.addEventListener("submit", function (event) {
@@ -40,10 +45,40 @@ filterButtons.forEach(function (button) {
     });
 });
 
+themeToggle.addEventListener("click", function () {
+    const darkModeAtivo = document.body.classList.toggle("dark-mode");
+
+    localStorage.setItem(THEME_STORAGE_KEY, darkModeAtivo ? "dark" : "light");
+    atualizarBotaoTema(darkModeAtivo);
+});
+
+function carregarTema() {
+    const temaSalvo = localStorage.getItem(THEME_STORAGE_KEY);
+    const darkModeAtivo = temaSalvo === "dark";
+
+    document.body.classList.toggle("dark-mode", darkModeAtivo);
+    atualizarBotaoTema(darkModeAtivo);
+}
+
+function atualizarBotaoTema(darkModeAtivo) {
+    if (darkModeAtivo) {
+        themeIcon.textContent = "☀️";
+        themeText.textContent = "Light Mode";
+        themeToggle.setAttribute("aria-label", "Ativar modo claro");
+        themeToggle.setAttribute("aria-pressed", "true");
+        return;
+    }
+
+    themeIcon.textContent = "🌙";
+    themeText.textContent = "Dark Mode";
+    themeToggle.setAttribute("aria-label", "Ativar modo escuro");
+    themeToggle.setAttribute("aria-pressed", "false");
+}
+
 function carregarTarefas() {
     const tarefasSalvas = localStorage.getItem(STORAGE_KEY);
 
-    // Fallback obrigatório: se ainda não houver dados salvos, inicia com array vazio.
+    // Fallback: se ainda não houver dados salvos, inicia com array vazio.
     if (tarefasSalvas === null) {
         return [];
     }
